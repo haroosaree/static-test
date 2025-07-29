@@ -2,6 +2,12 @@
 <script src="https://cdn1.onlineaccess1.com/cdn/base/tecton/v1.57.0/q2-tecton-sdk.js"></script>
 <script>
     console.log('#### Before DOMContentLoaded')
+    let clickCount = 0
+    window.addEventListener('click', function() {
+        clickCount++
+        document.querySelector('.container').style.height = `${500 * clickCount}px`
+        document.querySelector('.container').textContent = `${500 * clickCount}px`
+    });
     window.addEventListener('DOMContentLoaded', function() {
         console.log('#### DOMContentLoaded window.location.search -', window.location.search)
         //var moduleIdParam = 'tct-id=tectonRoute.AJSSR10.Main';
@@ -49,7 +55,10 @@
     }
 </style>
 <body>
+    <div>
+        <button>Increase size</button>
+    </div>
     <div class="container">
-        Hello World! 10
+        
     </div>
 </body>
