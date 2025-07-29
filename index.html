@@ -8,8 +8,8 @@
         document.querySelector('.container').style.height = `${500 * clickCount}px`
         document.querySelector('.container').textContent = `${500 * clickCount}px`
     }
-    document.querySelector('button').addEventListener('click',  resizeContainer);
     window.addEventListener('DOMContentLoaded', function() {
+        document.querySelector('button').addEventListener('click',  resizeContainer);
         console.log('#### DOMContentLoaded window.location.search -', window.location.search)
         //var moduleIdParam = 'tct-id=tectonRoute.AJSSR10.Main';
         var moduleIdParam = 'tct-id=tectonRoute.AJSSR11.Main';
