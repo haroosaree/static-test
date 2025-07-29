@@ -28,9 +28,9 @@
             // if you want to defer this then remove this line but call it somewhere else.
             capabilities.actions.setFetching(false);
             setTimeout(() => {
-                console.log('#### resizeIframe')
                 document.querySelector('.container').style.height = '1500px';
                 capabilities.actions.resizeIframe();
+                console.log('#### resizeIframe')
             },  5000)
         }).catch(e => console.log('#### connected error', e));;
         
@@ -44,6 +44,6 @@
 </style>
 <body>
     <div class="container">
-        Hello World! 8
+        Hello World! 9
     </div>
 </body>
