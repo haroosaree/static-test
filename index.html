@@ -3,11 +3,12 @@
 <script>
     console.log('#### Before DOMContentLoaded')
     let clickCount = 0
-    document.querySelector('button').addEventListener('click', function() {
+    function resizeContainer() {
         clickCount++
         document.querySelector('.container').style.height = `${500 * clickCount}px`
         document.querySelector('.container').textContent = `${500 * clickCount}px`
-    });
+    }
+    document.querySelector('button').addEventListener('click',  resizeContainer);
     window.addEventListener('DOMContentLoaded', function() {
         console.log('#### DOMContentLoaded window.location.search -', window.location.search)
         //var moduleIdParam = 'tct-id=tectonRoute.AJSSR10.Main';
