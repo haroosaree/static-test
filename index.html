@@ -9,10 +9,8 @@
         document.querySelector('.container').textContent = `${500 * clickCount}px`
     }
     window.addEventListener('DOMContentLoaded', function() {
-        console.log('#### clickCount = ', clickCount)
         if (clickCount > 0) return;
         document.querySelector('button').addEventListener('click',  resizeContainer);
-        console.log('#### DOMContentLoaded window.location.search -', window.location.search)
         //var moduleIdParam = 'tct-id=tectonRoute.AJSSR10.Main';
         var moduleIdParam = 'tct-id=tectonRoute.AJSSR11.Main';
         var urlWithModuleId;
@@ -21,13 +19,10 @@
                 console.log('#### moduleIdParam 1- ', moduleIdParam)
                 urlWithModuleId = window.location.href + '&' + moduleIdParam;
             }
-            console.log('#### moduleIdParam 2 - ', moduleIdParam)
         } else {
             urlWithModuleId = window.location.href + '?' + moduleIdParam
-            console.log('#### urlWithModuleId - ', urlWithModuleId)
         }
         urlWithModuleId && window.history.pushState({path:urlWithModuleId},'',urlWithModuleId);
-        console.log('#### pushState - ', urlWithModuleId, Tecton, Tecton.connect)
 
         window.tecton = { };
         window.tecton.connected = Tecton.connect().then(function(capabilities) {
@@ -37,16 +32,6 @@
             // this will turn off the spinner and show the iframe.
             // if you want to defer this then remove this line but call it somewhere else.
             capabilities.actions.setFetching(false);
-            // capabilities.actions.resizeIframe();            
-            // capabilities.sources.platformScrollChanged(function(scrollInfo) {
-            //     console.log('#### scrollInfo-', scrollInfo)
-            // })            
-
-            // setTimeout(() => {
-            //     document.querySelector('.container').style.height = '1500px';
-            //     capabilities.actions.resizeIframe();
-            //     console.log('#### resizeIframe')
-            // },  5000)
         }).catch(e => console.log('#### connected error', e));;
         
     })
@@ -54,7 +39,6 @@
 <style>
     .container {
         background: hotpink;
-        height: 0px;
     }
 </style>
 <body>
