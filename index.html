@@ -9,6 +9,8 @@
         document.querySelector('.container').textContent = `${500 * clickCount}px`
     }
     window.addEventListener('DOMContentLoaded', function() {
+        console.log('#### clickCount = ', clickCount)
+        if (clickCount > 0) return;
         document.querySelector('button').addEventListener('click',  resizeContainer);
         console.log('#### DOMContentLoaded window.location.search -', window.location.search)
         //var moduleIdParam = 'tct-id=tectonRoute.AJSSR10.Main';
