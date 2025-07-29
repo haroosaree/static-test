@@ -29,7 +29,7 @@
             capabilities.actions.setFetching(false);
             setTimeout(() => {
                 console.log('#### resizeIframe')
-                document.querySelector('.container').style.height = 
+                document.querySelector('.container').style.height = '1500px';
                 capabilities.actions.resizeIframe();
             }, 100)
         }).catch(e => console.log('#### connected error', e));;
