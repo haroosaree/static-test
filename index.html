@@ -23,7 +23,12 @@
 
     window.addEventListener('DOMContentLoaded', function() {
         window.tecton.connected.then(function(tecton) { 
-            window.location = 'https://haroosaree.github.io/static-test/';
+            console.log('#### connected')
+            window.tecton.actions = capabilities.actions;
+            window.tecton.sources = capabilities.sources;
+            // this will turn off the spinner and show the iframe.
+            // if you want to defer this then remove this line but call it somewhere else.
+            capabilities.actions.setFetching(false);            
         })
     })
 
