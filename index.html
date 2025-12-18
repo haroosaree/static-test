@@ -13,6 +13,7 @@
     urlWithModuleId && window.history.pushState({path:urlWithModuleId},'',urlWithModuleId);
     window.tecton = { };
     window.tecton.connected = Tecton.connect({}).then(function(capabilities) {
+        console.log('#### connected')
         window.tecton.actions = capabilities.actions;
         window.tecton.sources = capabilities.sources;
         // this will turn off the spinner and show the iframe.
