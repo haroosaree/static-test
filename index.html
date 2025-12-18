@@ -10,7 +10,7 @@
     } else {
         urlWithModuleId = window.location.href + '?' + moduleIdParam
     }
-    // urlWithModuleId && window.history.pushState({path:urlWithModuleId},'',urlWithModuleId);
+    urlWithModuleId && window.history.pushState({path:urlWithModuleId},'',urlWithModuleId);
     window.tecton = { };
     window.tecton.connected = Tecton.connect({}).then(function(capabilities) {
         window.tecton.actions = capabilities.actions;
