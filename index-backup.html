@@ -1,28 +1,51 @@
 <!-- The latest version of Tecton can be found at tecton.q2developer.com -->
-<script src="https://cdn1.onlineaccess1.com/cdn/base/tecton/v1.61.0/q2-tecton-sdk.js"></script>
+<script src="https://cdn1.onlineaccess1.com/cdn/base/tecton/v1.62.0/q2-tecton-sdk.js"></script>
 <script>
-    var moduleIdParam = 'tct-id=tectonRoute.AJSSR04.Main';
-
-    var urlWithModuleId;
-    if (window.location.search) {
-        if (window.location.search.indexOf('tct-id') === -1) {
-            urlWithModuleId = window.location.href + '&' + moduleIdParam;
-        }
-    } else {
-        urlWithModuleId = window.location.href + '?' + moduleIdParam
+    console.log('#### Before DOMContentLoaded')
+    let clickCount = 0
+    function resizeContainer() {
+        clickCount++
+        document.querySelector('.container').style.height = `${500 * clickCount}px`
+        document.querySelector('.container').textContent = `${500 * clickCount}px`
     }
-    urlWithModuleId && window.history.pushState({path:urlWithModuleId},'',urlWithModuleId);
+    window.addEventListener('DOMContentLoaded', function() {
+        if (clickCount > 0) return;
+        document.querySelector('button').addEventListener('click',  resizeContainer);
+        //var moduleIdParam = 'tct-id=tectonRoute.AJSSR10.Main';
+        var moduleIdParam = 'tct-id=tectonRoute.AJSSR04.Main';
+        var urlWithModuleId;
+        if (window.location.search) {
+            if (window.location.search.indexOf('tct-id') === -1) {
+                console.log('#### moduleIdParam 1- ', moduleIdParam)
+                urlWithModuleId = window.location.href + '&' + moduleIdParam;
+            }
+        } else {
+            urlWithModuleId = window.location.href + '?' + moduleIdParam
+        }
+        urlWithModuleId && window.history.pushState({path:urlWithModuleId},'',urlWithModuleId);
 
-    window.tecton = { };
-    window.tecton.connected = Tecton.connect({}).then(function(capabilities) {
-        window.tecton.actions = capabilities.actions;
-        window.tecton.sources = capabilities.sources;
-        // this will turn off the spinner and show the iframe.
-        // if you want to defer this then remove this line but call it somewhere else.
-        capabilities.actions.setFetching(false);
-
-    });
+        window.tecton = { };
+        window.tecton.connected = Tecton.connect().then(function(capabilities) {
+            console.log('#### window.tecton.connected ', capabilities)
+            window.tecton.actions = capabilities.actions;
+            window.tecton.sources = capabilities.sources;
+            // this will turn off the spinner and show the iframe.
+            // if you want to defer this then remove this line but call it somewhere else.
+            capabilities.actions.setFetching(false);
+        }).catch(e => console.log('#### connected error', e));;
+        
+    })
 </script>
-<body data-tecton-module style="height: 400px">
-  <p>lorem</p>
+<style>
+    .container {
+        background: hotpink;
+    }
+</style>
+<body data-tecton-module>
+    <div>
+        <button>Increase size</button>
+    </div>
+    <div class="container">
+        Initial v10
+    </div>
 </body>
