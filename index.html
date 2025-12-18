@@ -1,5 +1,5 @@
 <!-- The latest version of Tecton can be found at tecton.q2developer.com -->
-<script src="https://cdn1.onlineaccess1.com/cdn/base/tecton/v1.61.0/q2-tecton-sdk.js"></script>
+<script src="https://cdn1.onlineaccess1.com/cdn/base/tecton/v1.62.0/q2-tecton-sdk.js"></script>
 <script>
     var moduleIdParam = 'tct-id=tectonRoute.AJESSO03.Main';
 
@@ -12,19 +12,14 @@
         urlWithModuleId = window.location.href + '?' + moduleIdParam
     }
     urlWithModuleId && window.history.pushState({path:urlWithModuleId},'',urlWithModuleId);
+
     window.tecton = { };
     window.tecton.connected = Tecton.connect({}).then(function(capabilities) {
-        console.log('#### connected successfully');
         window.tecton.actions = capabilities.actions;
         window.tecton.sources = capabilities.sources;
         // this will turn off the spinner and show the iframe.
         // if you want to defer this then remove this line but call it somewhere else.
         capabilities.actions.setFetching(false);
+
     });
 </script>
-<style>
-    .container {height: 500px}
-</style>
-<body data-tecton-module>
-  <div class="container">lorem</div>
-</body>
