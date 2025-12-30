@@ -1,53 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport"
+            content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+        <title>Enhanced SSO Content</title>
+        <!-- The latest version of Tecton can be found at tecton.q2developer.com -->
+        <script src="https://cdn1.onlineaccess1.com/cdn/base/tecton/v1.62.0/q2-tecton-sdk.js"></script>
+        <script>
+            var moduleIdParam = 'tct-id=tectonRoute.{extension name}.{entrypoint name}';
 
-  <body data-tecton-module>
-    <q2-grid columns="2">
-      <q2-grid-area column-span="2" md-column-span="1">
-        <q2-item>
-          <q2-avatar src="/examples/logo.svg" slot="bullet"> </q2-avatar>
-          <div slot="header">
-            <span class="heading-2">Checking Account</span>
-          </div>
-          <div slot="body">Last Updated: April 15, 2025</div>
-        </q2-item>
-      </q2-grid-area>
-      <q2-grid-area md-justify="end" column-span="2" md-column-span="1">
-        <q2-grid columns="2">
-          <q2-grid-area>
-            <q2-detail stacked="true" size="small" label="Current balance">
-              <q2-currency amount="1480.13"> </q2-currency>
-            </q2-detail>
-          </q2-grid-area>
-          <q2-grid-area>
-            <q2-detail stacked="true" size="small" alignment="right" label="Available balance">
-              <q2-currency amount="1373.49"> </q2-currency>
-            </q2-detail>
-          </q2-grid-area>
-        </q2-grid>
-      </q2-grid-area>
-    </q2-grid>
-    <q2-input label="Search" hide-label="true" type="search" placeholder="Search transactions"> </q2-input>
-    <p>This is the end of the extension.</p>
-    <script src="https://cdn1.onlineaccess1.com/cdn/base/tecton/v1.62.0/q2-tecton-sdk.js"></script>
-    <script>
-      var moduleIdParam = "tct-id=tectonRoute.AJESSO03.Main";
+            var urlWithModuleId;
+            if (window.location.search) {
+                if (window.location.search.indexOf('tct-id') === -1) {
+                    urlWithModuleId = window.location.href + '&' + moduleIdParam;
+                }
+            } else {
+                urlWithModuleId = window.location.href + '?' + moduleIdParam
+            }
+            urlWithModuleId && window.history.pushState({ path: urlWithModuleId }, '', urlWithModuleId);
 
-      var urlWithModuleId;
-      if (window.location.search) {
-        if (window.location.search.indexOf("tct-id") === -1) {
-          urlWithModuleId = window.location.href + "&" + moduleIdParam;
-        }
-      } else {
-        urlWithModuleId = window.location.href + "?" + moduleIdParam;
-      }
-      urlWithModuleId && window.history.pushState({ path: urlWithModuleId }, "", urlWithModuleId);
-
-      window.tecton = {};
-      window.tecton.connected = Tecton.connect({}).then(function (capabilities) {
-        window.tecton.actions = capabilities.actions;
-        window.tecton.sources = capabilities.sources;
-        // this will turn off the spinner and show the iframe.
-        // if you want to defer this then remove this line but call it somewhere else.
-        capabilities.actions.setFetching(false);
-      });
-    </script>
-  </body>
+            window.tecton = {};
+            window.tecton.connected = Tecton.connect({}).then(function (capabilities) {
+                window.tecton.actions = capabilities.actions;
+                window.tecton.sources = capabilities.sources;
+                // this will turn off the spinner and show the iframe.
+                // if you want to defer this then remove this line but call it somewhere else.
+                capabilities.actions.setFetching(false);
+            });
+        </script>
+    </head>
+    <body data-tecton-module>
+        <div>This is my content</div>
+    </body>
+</html>
