@@ -9,11 +9,11 @@
         
         <script>
           const userAgent = window.navigator.userAgent;
-          console.log('#### userAgent = ', userAgent);
-          alert('#### userAgent = ' + userAgent);
+          document.querySelector('#useragent').textContent = userAgent;
         </script>
     </head>
     <body data-tecton-module>
         <div>This is userAgent</div>
+        <div id="useragent></div>
     </body>
 </html>
