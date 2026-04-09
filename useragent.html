@@ -10,12 +10,12 @@
         <script>
           document.addEventListener('DOMContentLoaded', function() {
               const userAgent = window.navigator.userAgent;
-              document.querySelector('#useragent').textContent = userAgent;
+              document.querySelector('#useragent').value = userAgent;
           });
         </script>
     </head>
     <body data-tecton-module>
         <div>This is userAgent</div>
-        <div id="useragent"></div>
+        <input id="useragent"></input>
     </body>
 </html>
