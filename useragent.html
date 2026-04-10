@@ -70,10 +70,10 @@
               document.querySelector('#ua').textContent = userAgent;
               document.querySelector('#useragent').value = userAgent;
               const { name, version, platform, context } = getBrowserInfo();
-              document.querySelector('#b_name').value = `Name: ${name}`;
-              document.querySelector('#b_version').value = `Version: ${version}`;
-              document.querySelector('#b_platform').value = `Platform: ${platform}`;
-              document.querySelector('#b_context').value = `Context: ${context}`;
+              document.querySelector('#b_name').textContent = `Name: ${name}`;
+              document.querySelector('#b_version').textContent = `Version: ${version}`;
+              document.querySelector('#b_platform').textContent = `Platform: ${platform}`;
+              document.querySelector('#b_context').textContent = `Context: ${context}`;
           });
         </script>
     </head>
