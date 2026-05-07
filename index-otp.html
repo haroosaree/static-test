@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>q2-otp Playground</title>
+    <link rel="stylesheet" href="https://cdn1.onlineaccess1.com/cdn/element-themes/standard.css" />
+    <script>
+        window.TectonElements = {
+            loc: function(key, subs) {
+                var strings = {
+                    'tecton.element.otp.digitLabel': 'Digit {index} of {length}',
+                    'tecton.element.optionList.label': 'Options',
+                    'tecton.element.optionList.optionCount': 'This option list has {0} options.',
+                    'tecton.element.option.label': '{0}',
+                    'tecton.element.section.defaultToggleLabel': 'Toggle Section',
+                    'tecton.element.tab.pane.new': 'new',
+                    'tecton.element.tab.pane.alert': '{0, plural, =1{Error} other{Errors}}',
+                    'tecton.element.tab.pane.warning': '{0, plural, =1{Warning} other{Warnings}}',
+                    'tecton.element.tab.pane.success': '{0, plural, =1{Success} other{Successes}}',
+                    'tecton.element.tab.pane.info': '{0, plural, =1{Message} other{Messages}}',
+                    'tecton.element.actionSheet.close': 'Close',
+                    'tecton.element.actionSheet.done': 'Done',
+                    'tecton.element.loading.ariaLabel': 'Loading'
+                };
+                var string = strings[key] || key;
+                if (Array.isArray(subs)) {
+                    return string.replace(/\{([0-9])\}/g, function(match, idx) {
+                        return subs[parseInt(idx)];
+                    });
+                } else if (typeof subs === 'object' && subs !== null) {
+                    return Object.entries(subs).reduce(function(accum, entry) {
+                        return accum.replace('{' + entry[0] + '}', entry[1]);
+                    }, string);
+                }
+                return string;
+            },
+            resizeIframe: function() {},
+            resolveMenu: function() { return Promise.resolve([]); },
+            navigateTo: function() {},
+            showOverpanel: function() { return {}; }
+        };
+    </script>
+    <script type="module" src="./build/q2-tecton-elements.esm.js"></script>
+    <style>
+        html {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+        body {
+            padding: var(--app-scale-3x, 15px);
+        }
+        h1 {
+            margin: 0 0 var(--app-scale-5x, 25px);
+        }
+        q2-section {
+            margin-bottom: var(--app-scale-4x, 20px);
+        }
+        .playground-grid {
+            display: grid;
+            gap: var(--app-scale-4x, 20px);
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+        }
+        .example-frame {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+            min-height: 260px;
+            padding: var(--app-scale-5x, 25px);
+        }
+        .controls {
+            align-items: center;
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--app-scale-2x, 10px);
+            justify-content: center;
+            margin-top: var(--app-scale-3x, 15px);
+        }
+        .status-log {
+            color: var(--t-textA, #4d4d4d);
+            font-size: var(--app-font-size-small, 12px);
+            margin-top: var(--app-scale-2x, 10px);
+            text-align: center;
+        }
+        .masked-large {
+            --tct-otp-field-masked-color: var(--t-primary, #0066cc);
+            --tct-otp-field-masked-size: 16px;
+        }
+    </style>
+</head>
+<body data-tecton-module>
+    <h1>q2-otp Playground</h1>
+
+    <q2-tab-container name="otp-tabs" value="overview">
+        <q2-tab-pane label="Overview" name="otp-tabs" value="overview">
+            <div class="playground-grid">
+                <q2-section label="Default">
+                    <div class="example-frame">
+                        <q2-otp
+                            id="default-otp"
+                            label="Verification Code"
+                            helper-text="Codes refresh every 30 seconds"
+                            submit-label="Verify"
+                            processing-label="Verifying"
+                            error-message="Invalid verification code. Please try again."
+                            success-message="Code verified."
+                            show-helper-text
+                        ></q2-otp>
+                    </div>
+                    <div class="controls">
+                        <q2-btn data-state-target="default-otp" data-state-value="" label="Clear state"></q2-btn>
+                        <q2-btn data-state-target="default-otp" data-state-value="error" label="Error"></q2-btn>
+                        <q2-btn data-state-target="default-otp" data-state-value="success" label="Success"></q2-btn>
+                    </div>
+                    <div class="status-log" id="default-log"></div>
+                </q2-section>
+
+                <q2-section label="States">
+                    <div class="example-frame">
+                        <q2-otp
+                            label="Verification Code"
+                            helper-text="Focus the first field to clear error state"
+                            submit-label="Verify"
+                            processing-label="Verifying"
+                            error-message="Invalid verification code. Please try again."
+                            success-message="Code verified."
+                            show-helper-text
+                            state="error"
+                            value="123456"
+                        ></q2-otp>
+                    </div>
+                </q2-section>
+            </div>
+        </q2-tab-pane>
+
+        <q2-tab-pane label="Lengths" name="otp-tabs" value="lengths">
+            <div class="playground-grid">
+                <q2-section label="4 digit">
+                    <div class="example-frame">
+                        <q2-otp
+                            label="Security Code"
+                            length="4"
+                            submit-label="Verify"
+                            value="1234"
+                        ></q2-otp>
+                    </div>
+                </q2-section>
+
+                <q2-section label="6 digit split">
+                    <div class="example-frame">
+                        <q2-otp
+                            label="Verification Code"
+                            helper-text="Grouped as 3-3"
+                            length="6"
+                            split
+                            show-helper-text
+                            submit-label="Verify"
+                            value="384912"
+                        ></q2-otp>
+                    </div>
+                </q2-section>
+
+                <q2-section label="8 digit">
+                    <div class="example-frame">
+                        <q2-otp
+                            label="Recovery Code"
+                            length="8"
+                            submit-label="Verify"
+                        ></q2-otp>
+                    </div>
+                </q2-section>
+            </div>
+        </q2-tab-pane>
+
+        <q2-tab-pane label="Masked" name="otp-tabs" value="masked">
+            <div class="playground-grid">
+                <q2-section label="Default masked bullet">
+                    <div class="example-frame">
+                        <q2-otp
+                            label="Masked Code"
+                            masked
+                            submit-label="Verify"
+                        ></q2-otp>
+                    </div>
+                </q2-section>
+
+                <q2-section label="Custom large bullet">
+                    <div class="example-frame">
+                        <q2-otp
+                            class="masked-large"
+                            label="Masked Code"
+                            masked
+                            submit-label="Verify"
+                            value="123456"
+                        ></q2-otp>
+                    </div>
+                </q2-section>
+            </div>
+        </q2-tab-pane>
+
+        <q2-tab-pane label="Auto Submit" name="otp-tabs" value="auto-submit">
+            <div class="playground-grid">
+                <q2-section label="Auto-submit on complete">
+                    <div class="example-frame">
+                        <q2-otp
+                            id="auto-submit-otp"
+                            auto-submit
+                            label="Verification Code"
+                            helper-text="Enter 6 digits to show the processing overlay"
+                            processing-label="Verifying"
+                            success-message="Code verified."
+                            show-helper-text
+                        ></q2-otp>
+                    </div>
+                    <div class="status-log" id="auto-submit-log"></div>
+                </q2-section>
+
+                <q2-section label="Verifying state">
+                    <div class="example-frame">
+                        <q2-otp
+                            auto-submit
+                            label="Verification Code"
+                            processing-label="Verifying"
+                            state="verifying"
+                            value="123456"
+                        ></q2-otp>
+                    </div>
+                </q2-section>
+            </div>
+        </q2-tab-pane>
+
+        <q2-tab-pane label="Disabled" name="otp-tabs" value="disabled">
+            <div class="playground-grid">
+                <q2-section label="Disabled">
+                    <div class="example-frame">
+                        <q2-otp
+                            disabled
+                            label="Verification Code"
+                            helper-text="Disabled input fields and actions"
+                            show-helper-text
+                            submit-label="Verify"
+                            value="123456"
+                        ></q2-otp>
+                    </div>
+                </q2-section>
+            </div>
+        </q2-tab-pane>
+    </q2-tab-container>
+
+    <script>
+        const defaultOtp = document.getElementById('default-otp');
+        const defaultLog = document.getElementById('default-log');
+        const autoSubmitOtp = document.getElementById('auto-submit-otp');
+        const autoSubmitLog = document.getElementById('auto-submit-log');
+
+        document.querySelectorAll('[data-state-target]').forEach(button => {
+            button.addEventListener('click', event => {
+                const control = event.currentTarget;
+                const otp = document.getElementById(control.dataset.stateTarget);
+                const nextState = control.dataset.stateValue;
+
+                if (nextState) {
+                    otp.setAttribute('state', nextState);
+                } else {
+                    otp.removeAttribute('state');
+                }
+            });
+        });
+
+        defaultOtp.addEventListener('tctInput', event => {
+            defaultLog.textContent = `Input value: ${event.detail.value || '(empty)'}`;
+        });
+
+        defaultOtp.addEventListener('tctSubmit', event => {
+            defaultLog.textContent = `Submitted value: ${event.detail.value}`;
+            defaultOtp.state = 'verifying';
+
+            window.setTimeout(() => {
+                defaultOtp.state = event.detail.value === '123456' ? 'success' : 'error';
+            }, 1500);
+        });
+
+        autoSubmitOtp.addEventListener('tctSubmit', event => {
+            autoSubmitLog.textContent = `Auto-submitted value: ${event.detail.value}`;
+
+            window.setTimeout(() => {
+                autoSubmitOtp.state = 'success';
+            }, 1500);
+        });
+    </script>
+</body>
+</html>
